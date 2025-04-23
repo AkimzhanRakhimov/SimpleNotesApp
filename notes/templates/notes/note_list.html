@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}All Notes{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">All Notes</h1>
+<a href="{% url 'note_create' %}" class="btn btn-primary mb-3">Create a new note</a>
+<!-- Форма поиска -->
+<form method="GET" class="mb-3">
+    <input type="text" name="q" class="form-control" placeholder="Search notes" value="{{ query }}">
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+</form>
+
+<!-- Фильтр по категориям -->
+<form method="GET" class="mb-3">
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category" class="form-select">
+        <option value="">All categories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Filter</button>
+</form>
+<ul class="list-group">
+    {% for note in notes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'note_detail' pk=note.pk %}" class="fw-bold">{{ note.title }}</a>
+                
+            </div>
+            <div>
+                <a href="{% url 'note_edit' pk=note.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="{% url 'note_delete' pk=note.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

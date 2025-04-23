@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit{% else %}Create{% endif %} Note
+{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Note</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.title.label_tag }} {{ form.title }}
+    </div>
+    <div class="mb-3">
+        {{ form.content.label_tag }} {{ form.content }}
+    </div>
+    <div class="mb-3">
+        {{ form.category.label_tag }} {{ form.category }}
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

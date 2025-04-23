@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<h1>Categories</h1>
+<a href="{% url 'category_create' %}" class="btn btn-primary mb-3">Create new category</a>
+<ul class="list-group">
+    {% for category in categories %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ category.name }}
+        <div>
+            <a href="{% url 'category_edit' pk=category.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <a href="{% url 'category_delete' pk=category.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

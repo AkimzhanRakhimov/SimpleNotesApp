@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ note.title }}</h1>
+<p class="mt-3">{{ note.content }}</p>
+{% if note.category %}
+<p><strong>Category:</strong> {{ note.category.name }}</p>
+{% endif %}
+<div class="mt-4">
+    <a href="{% url 'note_edit' pk=note.pk %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'note_delete' pk=note.pk %}" class="btn btn-warning">Delete</a>
+    <a href="{% url 'note_list' %}" class="btn btn-secondary">Back to all notes</a>
+</div>
+{% endblock %}
